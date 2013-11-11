@@ -19,7 +19,7 @@
 <layout version="0.1.0">
     <default>
         <reference name="before_body_end">
-            <block type="newrelic/footer" name="newrelic_footer" as="newrelic_footer" />
+            <block type="newrelic/footer" after="-" name="newrelic_footer" as="newrelic_footer" />
         </reference>
     </default>
 </layout>
