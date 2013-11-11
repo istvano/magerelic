@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Pwd Newrelic
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Pwd
+ * @package     Pwd_Newrelic
+ * @copyright   Copyright (c) 2013 Bluespell Ltd.
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<modules>
+		<Pwd_Newrelic>
+			<version>0.0.1</version>
+		</Pwd_Newrelic>
+	</modules>
+	<global>
+		<resources>
+			<pwd_newrelic_setup>
+				<setup>
+					<module>Pwd_Newrelic</module>
+					<class>Pwd_Newrelic_Model_Resource_Setup</class>
+				</setup>
+			</pwd_newrelic_setup>
+		</resources>
+		<blocks>
+			<newrelic>
+				<class>Pwd_Newrelic_Block</class>
+			</newrelic>
+		</blocks>
+		<helpers>
+			<newrelic>
+				<class>Pwd_Newrelic_Helper</class>
+			</newrelic>
+		</helpers>
+		<models>
+			<newrelic>
+				<class>Pwd_Newrelic_Model</class>
+				<resourceModel>newrelic_resource</resourceModel>
+			</newrelic>
+			<newrelic_resource>
+				<class>Pwd_Newrelic_Model_Resource</class>
+			</newrelic_resource>
+		</models>
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <newrelic_controller_front_init_before>
+                        <class>newrelic/observer</class>
+                        <method>frontInitBefore</method>
+                    </newrelic_controller_front_init_before>
+                </observers>
+            </controller_front_init_before>
+
+            <controller_action_predispatch>
+                <observers>
+                    <newrelic_controller_action_predispatch>
+                        <class>newrelic/observer</class>
+                        <method>preDispatch</method>
+                    </newrelic_controller_action_predispatch>
+                </observers>
+            </controller_action_predispatch>
+
+            <controller_action_postdispatch>
+                <observers>
+                    <newrelic_controller_front_init_before>
+                        <class>newrelic/observer</class>
+                        <method>postDispatch</method>
+                    </newrelic_controller_front_init_before>
+                </observers>
+            </controller_action_postdispatch>
+
+        </events>
+        <pwd_newrelic>
+            <clients>
+                <newrelic translate="label" module="newrelic" default="true">
+                    <model>newrelic/client_newrelic</model>
+                    <label>New Relic</label>
+                </newrelic>
+                <file translate="label" module="newrelic">
+                    <model>newrelic/client_debug</model>
+                    <label>Local File</label>
+                </file>
+            </clients>
+        </pwd_newrelic>
+        <log>
+            <core>
+                <writer_model>Pwd_NewRelic_Model_Log_Writer_Stream</writer_model>
+            </core>
+        </log>
+        <!--
+        <log>
+            <core>
+                <writer_model>Zend_Log_Writer_Stream</writer_model>
+            </core>
+        </log>
+                -->
+	</global>
+    <crontab>
+        <events>
+             <default>
+                 <observers>
+                     <newrelic_default>
+                         <class>newrelic/observer</class>
+                         <method>executeCron</method>
+                     </newrelic_default>
+                 </observers>
+             </default>
+            <always>
+                <observers>
+                    <newrelic_default>
+                        <class>newrelic/observer</class>
+                        <method>executeCron</method>
+                    </newrelic_default>
+                </observers>
+            </always>
+        </events>
+    </crontab>
+
+    <frontend>
+        <events>
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <newrelic_core_block_abstract_to_html_after>
+                        <type>singleton</type>
+                        <class>newrelic/observer</class>
+                        <method>coreBlockAbstractToHtmlAfter</method>
+                    </newrelic_core_block_abstract_to_html_after>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+        <layout>
+            <updates>
+                <pwd_fulltextindex>
+                    <file>pwd_newrelic.xml</file>
+                </pwd_fulltextindex>
+            </updates>
+        </layout>
+    </frontend>
+	<adminhtml>
+		<translate>
+			<modules>
+				<Pwd_Newrelic>
+					<files>
+						<default>Pwd_Newrelic.csv</default>
+					</files>
+				</Pwd_Newrelic>
+			</modules>
+		</translate>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Pwd_Newrelic before="Mage_Adminhtml">Pwd_Newrelic_Adminhtml</Pwd_Newrelic>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+        <pwd_core>
+            <newrelic>
+                <api>
+                    <!-- no fields -->
+                </api>
+                <general>
+                    <enabled>0</enabled>
+                    <monitor_admin>0</monitor_admin>
+                </general>
+            </newrelic>
+        </pwd_core>
+	</default>
+</config>
