@@ -24,13 +24,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
- * Dummy filesystem Client logging all new relic activities to the filesystem
+ * Abstract Class to implement a new relic client
  *
  * @category	Pwd
  * @package		Pwd_Newrelic
  * @author      Istvan Orban
  */
-class Pwd_Newrelic_Model_Client_Abstract {
+abstract class Pwd_Newrelic_Model_Client_Abstract {
 
     protected $_enabled;
 
@@ -48,6 +48,85 @@ class Pwd_Newrelic_Model_Client_Abstract {
     public function isEnabled() {
         return $this->_enabled;
     }
+
+    /**
+     * in new relic call this if the appname is defined
+     * if(!empty($appName)) newrelic_set_appname($appName, $license, $xmit);
+     */
+    public abstract function setApplicationName($name);
+
+    /**
+     * in new relic call ->
+    newrelic_capture_params(true);
+     * @return null
+     */
+    public abstract function captureParams();
+
+    /**
+     *
+     * record custom parameters to the call newrelic_add_custom_parameter()
+     *
+     * @param $name
+     * @param $value
+     * @return $this
+     */
+    public abstract function addCustomParameter($name, $value);
+
+    /**
+     * newrelic_ignore_transaction();
+     * @return $this
+     */
+    public abstract function ignoreTransaction();
+
+    /**
+     * newrelic_ignore_apdex();
+     * @return $this
+     */
+    public abstract function ignoreApdex();
+
+    /**
+     * record newrelic_set_user_attributes
+     * @param $user
+     * @param $account
+     * @param $product
+     */
+    public abstract function setUserAttributes($user, $account, $product);
+
+    /**
+     * record newrelic_name_transaction
+     * change the name of the transaction
+     * @param $name
+     */
+    public abstract function setNameTransaction($name);
+
+    /**
+     * return newrelic_get_browser_timing_header();
+     */
+    public abstract function getBrowserTimingHeader();
+
+    /**
+     * return newrelic_get_browser_timing_footer();
+     */
+    public abstract function getBrowserTimingFooter();
+
+
+    /**
+     * setting up new relic tracers using newrelic_add_custom_tracer()
+     * @param $name
+     * @return $this
+     */
+    public abstract function addCustomTracer($name);
+
+    /**
+     *
+     * call newrelic_notice_error (message [, exception] )
+     *
+     * @param $message
+     * @param null $exception
+     * @return $this
+     */
+    public abstract function noticeError($message, $exception = null);
+
 
     public function isMarkedBackground() {
         return $this->_backgroundjob == true;
