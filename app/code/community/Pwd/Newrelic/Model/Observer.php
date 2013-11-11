@@ -60,7 +60,6 @@ class Pwd_Newrelic_Model_Observer {
      */
     public function preDispatch(Varien_Event_Observer $observer) {
 
-
         if( Mage::helper('newrelic')->isEnabled() == false ) {
             return $this;
         }
