@@ -1,0 +1,5 @@
+lib/Pwd/Newrelic/Newrelic.php	lib/Pwd/Newrelic/Newrelic.php
+app/code/community/Pwd/Newrelic	app/code/community/Pwd/Newrelic
+app/etc/modules/Pwd_Newrelic.xml	app/etc/modules/Pwd_Newrelic.xml
+app/locale/en_US/Pwd_Newrelic.csv	app/locale/en_US/Pwd_Newrelic.csv
+app/design/frontend/base/default/layout/pwd_newrelic.xml app/design/frontend/base/default/layout/pwd_newrelic.xml
