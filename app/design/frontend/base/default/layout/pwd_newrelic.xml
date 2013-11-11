@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Pwd_Newrelic extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Pwd
+ * @package		Pwd_Newrelic
+ * @copyright  	Copyright (c) Bluespell Ltd.
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="newrelic/footer" name="newrelic_footer" as="newrelic_footer" />
+        </reference>
+    </default>
+</layout>
